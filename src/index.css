@@ -14,9 +14,11 @@ code {
 
 .linha {
   display:flex;
-  margin:5px;
 }
 
 .quadrado {
-  background-color: blue;
+  background-color: #fff;
+  width: 100px;
+  height: 100px;
+  font-size: 48px;
 }
