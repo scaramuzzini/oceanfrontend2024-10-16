@@ -9,12 +9,14 @@ function Quadrado({quadrado, cliqueQuadrado}) {
     );
 }
 
-function Tabuleiro({vezDoX, quadrados, handleClick}) {
+function Tabuleiro({vezDoX, quadrados, handleClick, rodadas}) {
+    let vencedor;
+    if (rodadas > 4) {
+        vencedor = verificarVencedor(quadrados);
+    }
 
-    const vencedor = verificarVencedor(quadrados);
 
-
-    let mensagem = 'oi';
+    let mensagem;
     if (vencedor) {
         mensagem = 'O vencedor é: ' + vencedor;
     } else {
@@ -72,6 +74,8 @@ function verificarVencedor(quadrados) {
         }
     }
 
+    //alert('verificaVencedor');
+
     return null;
 
 }
@@ -79,28 +83,34 @@ function verificarVencedor(quadrados) {
 function Jogo() {
     const [quadrados, setQuadrados] = useState(Array(9).fill(null));
     const [vezDoX,setVezDoX] = useState(true);
+    const [rodadas, setRodadas] = useState(1);
+
     function handleClick(indice) { // indice=0
-        if (verificarVencedor(quadrados) || quadrados[indice]) { //quadrados[0]
+        if ((rodadas>4 && verificarVencedor(quadrados)) || quadrados[indice]) { //quadrados[0]
             return; // saida da funcao
         }
         const novosQuadrados = quadrados.slice();
         novosQuadrados[indice] = vezDoX ? 'X' : 'O';
         setQuadrados(novosQuadrados);
         setVezDoX(!vezDoX);
+        setRodadas(rodadas+1);
     }
 
     function resetGame() {
         setQuadrados(Array(9).fill(null));
         setVezDoX(true);
+        setRodadas(1);
     }
 
     return (
         <>
-            <h1>Jogo da velha</h1>
+            <h1>Jogo da velha {rodadas} rodada</h1>
             <button onClick={resetGame}>Reiniciar jogo</button>
             <Tabuleiro vezDoX={vezDoX} 
                 quadrados={quadrados} 
-                handleClick={handleClick} />
+                handleClick={handleClick}
+                rodadas={rodadas}
+                />
 
             
         </>
