@@ -22,3 +22,8 @@ code {
   height: 100px;
   font-size: 48px;
 }
+
+h3 {
+  color:blueviolet;
+  margin:20px;
+}

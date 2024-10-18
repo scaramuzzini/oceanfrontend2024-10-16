@@ -9,19 +9,18 @@ function Quadrado({quadrado, cliqueQuadrado}) {
     );
 }
 
-function Jogo() {
-    const [quad,setQuad] = useState('');
-    const [quadrados, setQuadrados] = useState(Array(9).fill(null));
-    function handleClick(indice) {
-        const novosQuadrados = quadrados.slice();
-        novosQuadrados[indice] = 'X';
-        setQuadrados(novosQuadrados);
-    }
+function Tabuleiro({vezDoX, quadrados, handleClick}) {
 
+    let mensagem = 'oi';
+    if (vezDoX) {
+        mensagem = 'Vez do X';
+    } else {
+        mensagem = 'Vez da O';
+    }
 
     return (
         <>
-            <h1>Jogo da velha</h1>
+            <h3>{mensagem}</h3>
             <div class="linha">
                 <Quadrado quadrado={quadrados[0]} cliqueQuadrado={() => handleClick(0)} />
                 <Quadrado quadrado={quadrados[1]} cliqueQuadrado={() => handleClick(1)}/>
@@ -36,7 +35,34 @@ function Jogo() {
                 <Quadrado quadrado={quadrados[6]} cliqueQuadrado={() => handleClick(6)}/>
                 <Quadrado quadrado={quadrados[7]} cliqueQuadrado={() => handleClick(7)}/>
                 <Quadrado quadrado={quadrados[8]} cliqueQuadrado={() => handleClick(8)}/>
-            </div>
+            </div>        
+        </>
+    );
+
+}
+
+function Jogo() {
+    const [quadrados, setQuadrados] = useState(Array(9).fill(null));
+    const [vezDoX,setVezDoX] = useState(true);
+    
+    function handleClick(indice) {
+        if (quadrados[indice]) {
+            return;
+        }
+        const novosQuadrados = quadrados.slice();
+        novosQuadrados[indice] = vezDoX ? 'X' : 'O';
+        setQuadrados(novosQuadrados);
+        setVezDoX(!vezDoX);
+    }
+
+    return (
+        <>
+            <h1>Jogo da velha</h1>
+            <Tabuleiro vezDoX={vezDoX} 
+                quadrados={quadrados} 
+                handleClick={handleClick} />
+
+            
         </>
     );
 }
