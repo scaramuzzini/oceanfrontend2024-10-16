@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function Contador() {
-    const [contagem,setContagem] = useState();
+    const [contagem,setContagem] = useState(0);
 
     function handleClick() {
         setContagem(contagem+1);
