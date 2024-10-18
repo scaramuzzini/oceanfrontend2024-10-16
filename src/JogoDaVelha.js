@@ -44,10 +44,9 @@ function Tabuleiro({vezDoX, quadrados, handleClick}) {
 function Jogo() {
     const [quadrados, setQuadrados] = useState(Array(9).fill(null));
     const [vezDoX,setVezDoX] = useState(true);
-    
-    function handleClick(indice) {
-        if (quadrados[indice]) {
-            return;
+    function handleClick(indice) { // indice=0
+        if (quadrados[indice]) { //quadrados[0]
+            return; // saida da funcao
         }
         const novosQuadrados = quadrados.slice();
         novosQuadrados[indice] = vezDoX ? 'X' : 'O';
@@ -55,9 +54,11 @@ function Jogo() {
         setVezDoX(!vezDoX);
     }
 
+    //Adicionar botao RESET DO JOGO
     return (
         <>
             <h1>Jogo da velha</h1>
+            <button>Resetar jogo</button>
             <Tabuleiro vezDoX={vezDoX} 
                 quadrados={quadrados} 
                 handleClick={handleClick} />
